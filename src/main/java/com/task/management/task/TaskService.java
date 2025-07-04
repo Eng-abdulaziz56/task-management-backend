@@ -6,6 +6,7 @@ import com.task.management.task.dto.TaskResponse;
 import com.task.management.task.dto.UpdateTaskRequest;
 import com.task.management.task.enums.TaskPriority;
 import com.task.management.task.enums.TaskStatus;
+import com.task.management.task.service.TaskEventProducer;
 import com.task.management.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final TaskEventProducer taskEventProducer;
 
     public TaskResponse createTask(CreateTaskRequest request, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
@@ -33,6 +35,7 @@ public class TaskService {
                 .build();
 
         Task savedTask = taskRepository.save(task);
+        taskEventProducer.publishTaskCreated(savedTask);
         return TaskResponse.fromEntity(savedTask);
     }
 
@@ -76,6 +79,7 @@ public class TaskService {
         }
 
         Task updatedTask = taskRepository.save(task);
+        taskEventProducer.publishTaskUpdated(updatedTask);
         return TaskResponse.fromEntity(updatedTask);
     }
 
@@ -84,6 +88,7 @@ public class TaskService {
         Task task = taskRepository.findByIdAndUser(id, user)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));
 
+        taskEventProducer.publishTaskDeleted(task);
         taskRepository.delete(task);
     }
 }
