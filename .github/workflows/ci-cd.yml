@@ -27,7 +27,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Run tests
-        run: mvn test
+        run: mvn test -Dspring.profiles.active=test
 
       - name: Build application
         run: mvn clean package -DskipTests
