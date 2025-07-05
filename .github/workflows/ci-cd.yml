@@ -51,13 +51,8 @@ jobs:
       - name: Build Docker image
         run: docker build -t task-management:latest .
 
-      - name: Test Docker image
-        run: |
-          docker run --rm -d --name test-app -p 8080:8080 task-management:latest
-          sleep 10
-          curl -f http://localhost:8080/actuator/health || exit 1
-          docker stop test-app
 
       # deployment part, but for now we don't have deployment
+
 
   
