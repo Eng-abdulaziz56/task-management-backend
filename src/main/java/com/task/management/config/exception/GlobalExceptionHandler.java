@@ -69,7 +69,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Object>> handleGeneralException(Exception ex) {
-        ex.printStackTrace(); // Optional: Log for debugging in dev environments
+        ex.printStackTrace(); 
         return ResponseUtil.error("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

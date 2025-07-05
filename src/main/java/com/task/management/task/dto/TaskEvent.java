@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TaskEvent {
-    private String eventType; // CREATED, UPDATED, DELETED
+    private String eventType; 
     private Integer taskId;
     private String title;
     private String description;

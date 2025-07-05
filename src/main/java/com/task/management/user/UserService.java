@@ -19,7 +19,6 @@ public class UserService {
         var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
         System.out.println(user.getPassword());
         System.out.println(user.getUsername());
-        // check if the current password is correct
         if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
             throw new IllegalStateException("Wrong password");
         }
