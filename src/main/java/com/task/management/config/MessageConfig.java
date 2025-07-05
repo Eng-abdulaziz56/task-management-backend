@@ -15,7 +15,7 @@ public class MessageConfig {
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-        source.setBasename("messages"); // looks for messages_en/ar.properties
+        source.setBasename("messages"); 
         source.setDefaultEncoding("UTF-8");
         source.setUseCodeAsDefaultMessage(true);
         return source;

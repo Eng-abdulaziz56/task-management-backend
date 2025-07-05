@@ -76,15 +76,13 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // For development - specify exact origins
         configuration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:3000",
                 "http://localhost:3001",
-                "http://localhost:5173"  // Add Vite dev server port
+                "http://localhost:5173"  
         ));
 
-        // For production, you might want to be more restrictive
-        // configuration.setAllowedOriginPatterns(Arrays.asList("https://*.yourdomain.com"));
+
 
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(Arrays.asList("*"));
