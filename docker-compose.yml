@@ -19,8 +19,14 @@ services:
       # Enable Spring DevTools
       - SPRING_DEVTOOLS_RESTART_ENABLED=true
       - SPRING_DEVTOOLS_LIVERELOAD_ENABLED=true
+      # Default values for CI/CD
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME:-guest}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD:-guest}
+      - MAIL_USERNAME=${MAIL_USERNAME:-test@example.com}
+      - MAIL_PASSWORD=${MAIL_PASSWORD:-password}
     depends_on:
       - db
+      - rabbitmq
     stdin_open: true
     tty: true
 
@@ -31,6 +37,11 @@ services:
       - .env
     ports:
       - "5432:5432"
+    environment:
+      # Default values for CI/CD
+      - POSTGRES_DB=${POSTGRES_DB:-task-management-db}
+      - POSTGRES_USER=${POSTGRES_USER:-task-management-db}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-123123}
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -43,8 +54,8 @@ services:
     env_file:
       - .env
     environment:
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USERNAME}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USERNAME:-guest}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD:-guest}
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
 

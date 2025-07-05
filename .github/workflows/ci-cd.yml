@@ -58,11 +58,6 @@ jobs:
           curl -f http://localhost:8080/actuator/health || exit 1
           docker stop test-app
 
-      - name: Deploy to Docker Hub
-        run: |
-          echo "Deploying to Docker Hub..."
-          # Uncomment and configure when ready to deploy
-          # docker tag task-management:latest yourusername/task-management:latest
-          # docker push yourusername/task-management:latest
+      # deployment part, but for now we don't have deployment
 
   
