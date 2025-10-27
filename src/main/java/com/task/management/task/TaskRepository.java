@@ -19,15 +19,15 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     Optional<Task> findByIdAndUser(Integer id, User user);
 
     @Query("""
-SELECT t FROM Task t
-WHERE t.user = :user
-AND (:priority IS NULL OR t.priority = :priority)
-AND (:status IS NULL OR t.status = :status)
-AND (
-    LOWER(t.title) LIKE LOWER(CONCAT('%', :search, '%')) OR 
-    LOWER(t.description) LIKE LOWER(CONCAT('%', :search, '%'))
-)
-""")
+            SELECT t FROM Task t
+            WHERE t.user = :user
+            AND (:priority IS NULL OR t.priority = :priority)
+            AND (:status IS NULL OR t.status = :status)
+            AND (
+                    LOWER(t.title) LIKE LOWER(CONCAT('%', :search, '%')) OR 
+                    LOWER(t.description) LIKE LOWER(CONCAT('%', :search, '%'))
+            )
+            """)
 
     List<Task> searchTasks(
             @Param("user") User user,
